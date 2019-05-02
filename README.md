@@ -13,7 +13,7 @@
 
 * main_example.tex - пример основного файла. Рекомендуется создать свой main.tex, чтобы изменения в main_example.tex не мешали работе.
 
-* [main_example.pdf](../blob/master/main_example.pdf) - пример получившегося PDF файла
+* [main_example.pdf](https://github.com/itonik/spbu_diploma/blob/master/main_example.pdf) - пример получившегося PDF файла
 
 ## Какие документы регламентируют верстку ВКР?
 Их два. Первый регламентирует титульный лист (последняя страница):
