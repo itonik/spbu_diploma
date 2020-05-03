@@ -1,0 +1,115 @@
+% --------------------- Стандарт СПбГУ для ВКР --------------------------
+% Автор: Тоскин Николай, itonik@me.com
+% Если заметили ошибку, напишите на email
+% Если хотите добавить изменение самостоятельно, GitHub: . PR-s welcome!
+% Использованы материалы:
+% habr.com/ru/post/144648/
+% cpsconf.ru
+% meta.math.spbu.ru/ru/template.shtml
+% Текст:
+% http://edu.spbu.ru/images/data/normativ_acts/local/20181030_10432_1.pdf
+% Титульный лист:
+% http://edu.spbu.ru/images/data/normativ_acts/local/20180703_6616_1.pdf
+% -----------------------------------------------------------------------
+
+% Глобальные поля
+\usepackage[left=30mm, top=20mm, right=15mm, bottom=20mm,nohead, includefoot,footskip=35pt]{geometry}
+
+% Язык, кодировка, шрифт
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+\renewcommand{\rmdefault}{Tempora-TLF}
+
+% Межстрочный интервал = 1.5pt
+\usepackage{setspace}
+\onehalfspacing
+
+% Абзацный отступ = 1.25см
+\usepackage{indentfirst}
+\setlength\parindent{12.5mm}
+
+% Пакет для содержания
+\usepackage{tocloft}
+
+% Команда для специальных разделов (введение, обзор литературы, etc)
+% Не нумеруются в содержании, по уровню вложенности: 
+\newcommand{\specialsection}[1]{
+    \phantomsection
+    \bigskip\smallskip\hspace{-13.8mm}
+    \normalfont\fontsize{18}{18}\textbf{#1}
+    \par\bigskip\normalfont\normalsize
+    \addcontentsline{toc}{section}{#1}
+}
+
+% Размеры заголовков разделов и подразделов
+\usepackage{titlesec}
+% Раздел: 18pt, добавляем слово "Глава"
+\titleformat{\section}
+{\fontsize{18}{18}\bfseries}{
+\hspace{-1.5mm}Глава \thesection. \hskip-1em}{1em}{}
+% Подраздел: 16pt
+\titleformat{\subsection}
+{\fontsize{16}{16}\bfseries}{\hspace{-0.2mm}\thesubsection}{1em}{}
+
+% Сожержание
+% Выравнивание заголовка по центру (да, да, хак с отступом слева \hspace{0.31\textwidth})
+% т.к. окружение center и \centering не работают
+\renewcommand{\cfttoctitlefont}{\hspace{0.31\textwidth} \bfseries\Large}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+% Слово "Глава" в содержании
+\renewcommand{\cftsecpresnum}{Глава\space}
+\newlength\mylength
+\settowidth\mylength{\cftsecpresnum}
+\addtolength\cftsecnumwidth{\mylength}
+% Строки с точками
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+% Точки после цифр в в содержании
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cftsubsecaftersnum}{.}
+% Подровнять subsection под точку главы
+% (если глав будет больше десяти, будет чуть хуже)
+\setlength{\cftsubsecindent}{2.68em}
+% Интервал глав
+\setlength{\cftbeforesecskip}{4pt}
+
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+% Шрифт подписи (caption) = 12pt
+% (Повезло, что small как раз равен 12pt)
+\usepackage[font=small,labelfont=bf]{caption}
+
+% Пакет, который позволяет собирать один документ TeX из нескольких
+\usepackage{import}
+
+% Пакет, реализующий гиперссылки. Никакого расскрашивания
+\usepackage[colorlinks=false,unicode=true]{hyperref}
+
+\newcommand{\ITEM}{\vspace{-0.2cm}\item}
+\newcommand{\MList}[1]{\par\begin{itemize}#1\end{itemize}}
+\newcommand{\NList}[1]{\par\begin{enumerate}#1\end{enumerate}}
+
+% Нумерация только тех формул, на которые в тексте присутствует ссылка
+\usepackage{autonum}
+
+% Список литературы
+\renewenvironment{thebibliography}[1]
+    {\bigskip
+    {\centering\large\bf Список литературы\par}%
+    \addcontentsline{toc}{section}{Список литературы}
+    \smallskip
+    \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+        \leftmargin\labelwidth
+        \advance\leftmargin\labelsep
+        \@openbib@code
+        \usecounter{enumiv}%
+        \let\p@enumiv\@empty
+        \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+    \sloppy
+    \clubpenalty4000
+    \@clubpenalty \clubpenalty
+    \widowpenalty4000%
+    \sfcode`\.\@m}
+    {\def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+    \endlist}
